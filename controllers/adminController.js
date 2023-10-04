@@ -1,5 +1,5 @@
 const createError = require("http-errors")
-const collegeService = require("../service/collegeService");
+const collegeService = require("../service/adminService");
 const asyncHandler = require("express-async-handler")
 
 exports.getAllCollege = asyncHandler (async (req,res)=>{

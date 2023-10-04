@@ -1,22 +1,19 @@
-var Sequelize = require('sequelize');
-var db        = {};
-var sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "test.db",
-  define: {
-    timestamps: false,
-    freezeTableName: true,
-  },
-  logging: false
+var Sequelize = require("sequelize");
+var db = {};
+const sequelize = new Sequelize("myplace", "root", "", {
+  host: "localhost",
+  dialect: "mysql",
 });
 db.sequelize = sequelize;
-db.college = require('../models/collegeModel.js')(sequelize, Sequelize);
-db.employer = require('../models/employerModel.js')(sequelize, Sequelize);
-db.college.hasMany(db.employer, {
-  foreignKey: 'collegeid',
+db.admin = require("../models/adminModel")(sequelize, Sequelize);
+db.post = require("../models/postModel")(sequelize, Sequelize);
+db.favorites = require("../models/favoritesModel")(sequelize, Sequelize);
+//db.college = require("../models/collegeModel.js")(sequelize, Sequelize);
+//db.employer = require("../models/employerModel.js")(sequelize, Sequelize);
+db.post.hasMany(db.favorites, {
+  foreignKey: "postid",
   sourceKey: "id",
-  as: "collegeid",
-
+  as: "postid",
 });
 
 sequelize.sync();
